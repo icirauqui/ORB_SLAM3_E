@@ -33,8 +33,8 @@ using namespace std;
 namespace ORB_SLAM3
 {
 
-const int ORBmatcher::TH_HIGH = 100;
-const int ORBmatcher::TH_LOW = 50;
+const int ORBmatcher::TH_HIGH = 95;     //IC001
+const int ORBmatcher::TH_LOW = 45;      //IC001
 const int ORBmatcher::HISTO_LENGTH = 30;
 
 ORBmatcher::ORBmatcher(float nnratio, bool checkOri): mfNNratio(nnratio), mbCheckOrientation(checkOri)
@@ -216,9 +216,9 @@ int ORBmatcher::SearchByProjection(Frame &F, const vector<MapPoint*> &vpMapPoint
 float ORBmatcher::RadiusByViewingCos(const float &viewCos)
 {
     if(viewCos>0.998)
-        return 2.5;
+        return 3.0;     //IC001
     else
-        return 4.0;
+        return 4.5;     //IC001
 }
 
 

@@ -460,7 +460,7 @@ void LocalMapping::CreateNewMapPoints()
             const float medianDepthKF2 = pKF2->ComputeSceneMedianDepth(2);
             const float ratioBaselineDepth = baseline/medianDepthKF2;
 
-            if(ratioBaselineDepth<0.01)
+            if(ratioBaselineDepth<0.05)     //IC001
                 continue;
         }
 
@@ -603,7 +603,7 @@ void LocalMapping::CreateNewMapPoints()
             cv::Matx31f x3D;
             bool bEstimated = false;
             if(cosParallaxRays<cosParallaxStereo && cosParallaxRays>0 && (bStereo1 || bStereo2 ||
-               (cosParallaxRays<0.9998 && mbInertial) || (cosParallaxRays<0.9998 && !mbInertial)))
+               (cosParallaxRays<0.9997 && mbInertial) || (cosParallaxRays<0.9997 && !mbInertial)))      //IC001
             {
                 // Linear Triangulation Method
                 cv::Matx14f A_r0 = xn1(0) * Tcw1.row(2) - Tcw1.row(0);
@@ -671,7 +671,7 @@ void LocalMapping::CreateNewMapPoints()
                 float errX1 = uv1.x - kp1.pt.x;
                 float errY1 = uv1.y - kp1.pt.y;
 
-                if((errX1*errX1+errY1*errY1)>5.991*sigmaSquare1)
+                if((errX1*errX1+errY1*errY1)>0.5991*sigmaSquare1)   //IC001
                     continue;
 
             }
@@ -697,7 +697,7 @@ void LocalMapping::CreateNewMapPoints()
                 cv::Point2f uv2 = pCamera2->project(cv::Point3f(x2,y2,z2));
                 float errX2 = uv2.x - kp2.pt.x;
                 float errY2 = uv2.y - kp2.pt.y;
-                if((errX2*errX2+errY2*errY2)>5.991*sigmaSquare2)
+                if((errX2*errX2+errY2*errY2)>0.5991*sigmaSquare2)   //IC001
                     continue;
             }
             else

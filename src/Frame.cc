@@ -1208,7 +1208,7 @@ bool Frame::isInFrustumChecks(MapPoint *pMP, float viewingCosLimit, bool bRight)
     const cv::Matx31f POx = Px - twcx;
     const float dist = cv::norm(POx);
 
-    if(dist<minDistance || dist>maxDistance)
+    if(dist<0.9*minDistance || dist>maxDistance/0.9)        //IC001
         return false;
 
     // Check viewing angle
